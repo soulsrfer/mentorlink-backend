@@ -21,7 +21,6 @@ public class RoleServiceImpl implements RoleService {
         role.setName(role.getName().toUpperCase());
         return roleRepository.save(role);
     }
-
     @Override
     public int removeRole(RoleEntity role) {
         return roleRepository.deleteByName(role.getName().toUpperCase());
