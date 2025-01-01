@@ -38,30 +38,21 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthDTO> loginUser(@RequestBody UserEntity user) {
+    public ResponseEntity<String> loginUser(@RequestBody UserEntity user) {
 
         String token = userService.verifyUser(user);
-        String username = jwtService.getSubject(token);
-//        Claims claims = jwtService.extractAllClaims(token);
-        AuthDTO authDTO = new AuthDTO();
-        UserEntity userEntity = userService.findUserByUserName(user.getUsername());
-        authDTO.setId(userEntity.getId());
-        authDTO.setToken(token);
-        authDTO.setScopes(jwtService.getScopes(token));
-        authDTO.setSubject(username);
-        authDTO.setExpiresAt(jwtService.getExpiration(token));
 
-        String[] chunks = token.split("\\.");
+//        String[] chunks = token.split("\\.");
+//        Base64.Decoder decoder = Base64.getUrlDecoder();
+//        String header = new String(decoder.decode(chunks[0]));
+//        String payload = new String(decoder.decode(chunks[1]));
+//        System.out.println(header);
+//        System.out.println(payload);
 
-        Base64.Decoder decoder = Base64.getUrlDecoder();
-        String header = new String(decoder.decode(chunks[0]));
-        String payload = new String(decoder.decode(chunks[1]));
-
-        System.out.println(header);
-        System.out.println(payload);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                        .body(authDTO);
+//                .header("Authorization", token)
+                .body(token);
     }
 
     @PostMapping("/assign-role")

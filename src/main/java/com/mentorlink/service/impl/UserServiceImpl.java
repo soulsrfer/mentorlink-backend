@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
             UserEntity verifiedUser = userRepository.findByUsername(user.getUsername());
             return jwtService.generateToken(verifiedUser);
         }
-        return "failed!";
+        throw new  RuntimeException("Authentication failed");
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.mentorlink.service;
 
 import com.mentorlink.constant.RoleConstant;
-import com.mentorlink.entity.RoleEntity;
 import com.mentorlink.entity.UserEntity;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -45,6 +43,7 @@ public class JWTService {
                 .map(GrantedAuthority::getAuthority) // Extract role names
                 .collect(Collectors.toList());
         claims.put(RoleConstant.SCOPE, roles);
+        claims.put("userId", user.getId());
         return Jwts.builder()
                 .claims()
                 .add(claims)
